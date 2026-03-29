@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>大宝导航 - 本地标签管理</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background-color: #f0f2f5;
+            color: #333333;
+        }
+
+        /* 顶部导航栏 */
+        .header {
+            height: 60px;
+            background-color: #ffffff;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.09);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header h1 {
+            font-size: 20px;
+            font-weight: 600;
+            color: #1890ff;
+        }
+
+        .search-box {
+            width: 300px;
+            height: 36px;
+            border: 1px solid #d9d9d9;
+            border-radius: 4px;
+            padding: 0 12px;
+            font-size: 14px;
+            outline: none;
+            transition: all 0.3s;
+        }
+
+        .search-box:focus {
+            border-color: #1890ff;
+            box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
+        }
+
+        /* 主体内容区 */
+        .main-content {
+            padding: 24px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .category {
+            margin-bottom: 32px;
+        }
+
+        .category-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
+
+        .category-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333333;
+        }
+
+        .category-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn {
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 1px solid transparent;
+        }
+
+        .btn-primary {
+            background-color: #1890ff;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #40a9ff;
+        }
+
+        .btn-outline {
+            background-color: white;
+            color: #1890ff;
+            border: 1px solid #1890ff;
+        }
+
+        .btn-outline:hover {
+            background-color: #e6f7ff;
+        }
+
+        .btn-small {
+            padding: 2px 8px;
+            font-size: 12px;
+        }
+
+        .tabs-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 16px;
+        }
+
+        .tab-card {
+            background-color: white;
+            border: 1px solid #e8e8e8;
+            border-radius: 8px;
+            padding: 16px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            height: 120px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .tab-card:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .tab-card .tab-icon {
+            width: 48px;
+            height: 48px;
+            margin-bottom: 12px;
+            border-radius: 8px;
+        }
+
+        .tab-card .tab-name {
+            font-size: 14px;
+            color: #333333;
+            margin-bottom: 8px;
+        }
+
+        .tab-actions {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            display: none;
+            gap: 4px;
+        }
+
+        .tab-card:hover .tab-actions {
+            display: flex;
+        }
+
+        /* 底部操作栏 */
+        .footer {
+            height: 60px;
+            background-color: #ffffff;
+            box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.09);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            position: sticky;
+            bottom: 0;
+        }
+
+        .footer-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        /* 对话框 */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+        }
+
+        .modal.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background-color: white;
+            border-radius: 8px;
+            padding: 24px;
+            width: 400px;
+            max-width: 90vw;
+            max-height: 90vh;
+            overflow-y: auto;
+            transform: translateY(-20px);
+            transition: all 0.3s;
+        }
+
+        .modal.show .modal-content {
+            transform: translateY(0);
+        }
+
+        .modal-header {
+            margin-bottom: 20px;
+        }
+
+        .modal-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333333;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 14px;
+            color: #666666;
+            margin-bottom: 8px;
+        }
+
+        .form-input {
+            width: 100%;
+            height: 36px;
+            border: 1px solid #d9d9d9;
+            border-radius: 4px;
+            padding: 0 12px;
+            font-size: 14px;
+            outline: none;
+            transition: all 0.3s;
+        }
+
+        .form-input:focus {
+            border-color: #1890ff;
+            box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
+        }
+
+        .form-select {
+            width: 100%;
+            height: 36px;
+            border: 1px solid #d9d9d9;
+            border-radius: 4px;
+            padding: 0 12px;
+            font-size: 14px;
+            outline: none;
+            transition: all 0.3s;
+        }
+
+        .form-select:focus {
+            border-color: #1890ff;
+            box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
+        }
+
+        .modal-footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+            margin-top: 24px;
+        }
+
+        /* 空状态 */
+        .empty-state {
+            text-align: center;
+            padding: 48px 0;
+            color: #999999;
+        }
+
+        .empty-state-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .header {
+                padding: 0 16px;
+            }
+
+            .search-box {
+                width: 200px;
+            }
+
+            .main-content {
+                padding: 16px;
+            }
+
+            .tabs-container {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+                gap: 12px;
+            }
+
+            .tab-card {
+                height: 100px;
+                padding: 12px;
+            }
+
+            .tab-card .tab-icon {
+                width: 36px;
+                height: 36px;
+                margin-bottom: 8px;
+            }
+
+            .footer {
+                padding: 0 16px;
+                flex-direction: column;
+                height: auto;
+                padding: 12px;
+                gap: 8px;
+            }
+
+            .footer-actions {
+                width: 100%;
+                justify-content: space-between;
+            }
+
+            .btn {
+                flex: 1;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 顶部导航栏 -->
+    <header class="header">
+        <h1>大宝导航</h1>
+        <input type="text" class="search-box" placeholder="搜索标签..." id="searchInput">
+    </header>
+
+    <!-- 主体内容区 -->
+    <main class="main-content" id="mainContent">
+        <!-- 分类和标签将通过JavaScript动态生成 -->
+    </main>
+
+    <!-- 底部操作栏 -->
+    <footer class="footer">
+        <div class="footer-actions">
+            <button class="btn btn-primary" id="addTabBtn">添加标签</button>
+            <button class="btn btn-outline" id="importBtn">导入JSON</button>
+            <button class="btn btn-outline" id="exportBtn">导出JSON</button>
+            <button class="btn btn-outline" id="addCategoryBtn">添加分类</button>
+        </div>
+    </footer>
+
+    <!-- 添加/编辑标签对话框 -->
+    <div class="modal" id="tabModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="tabModalTitle">添加标签</h2>
+            </div>
+            <form id="tabForm">
+                <div class="form-group">
+                    <label class="form-label" for="tabName">名称</label>
+                    <input type="text" class="form-input" id="tabName" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="tabUrl">URL</label>
+                    <input type="url" class="form-input" id="tabUrl" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="tabIcon">图标URL</label>
+                    <input type="url" class="form-input" id="tabIcon">
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="tabCategory">分类</label>
+                    <select class="form-select" id="tabCategory" required></select>
+                </div>
+            </form>
+            <div class="modal-footer">
+                <button class="btn btn-outline" id="tabModalCancel">取消</button>
+                <button class="btn btn-primary" id="tabModalSave">保存</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 分类管理对话框 -->
+    <div class="modal" id="categoryModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="categoryModalTitle">添加分类</h2>
+            </div>
+            <form id="categoryForm">
+                <div class="form-group">
+                    <label class="form-label" for="categoryName">分类名称</label>
+                    <input type="text" class="form-input" id="categoryName" required>
+                </div>
+            </form>
+            <div class="modal-footer">
+                <button class="btn btn-outline" id="categoryModalCancel">取消</button>
+                <button class="btn btn-primary" id="categoryModalSave">保存</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 确认对话框 -->
+    <div class="modal" id="confirmModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">确认操作</h2>
+            </div>
+            <p id="confirmMessage">确定要执行此操作吗？</p>
+            <div class="modal-footer">
+                <button class="btn btn-outline" id="confirmCancel">取消</button>
+                <button class="btn btn-primary" id="confirmOk">确认</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
