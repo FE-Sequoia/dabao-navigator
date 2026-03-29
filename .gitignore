@@ -58,3 +58,6 @@ ehthumbs.db
 # Project specific directories
 .history
 .trae
+
+# Build artifacts
+*.zip
