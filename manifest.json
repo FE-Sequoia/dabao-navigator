@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "大宝导航 (Dabao Navigator)",
+  "name": "dabao-navigator-plus-v1",
   "description": "一个本地标签管理插件，用于替换默认的新标签页，支持标签分类管理和数据导入导出。",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "chrome_url_overrides": {
     "newtab": "index.html"
   },
