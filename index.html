@@ -12,16 +12,47 @@
         }
 
         body {
+            margin: 0;
+            padding: 0;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background-color: #f0f2f5;
+            background: linear-gradient(-45deg, #1a1a2e, #16213e, #1a1a2e, #0f3460, #1a1a2e, #16213e);
+            background-size: 400% 400%;
+            animation: gradientBG 20s ease infinite;
             color: #333333;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        #particles-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .content-wrapper {
+            position: relative;
+            z-index: 2;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
         /* 顶部导航栏 */
         .header {
             height: 60px;
-            background-color: #ffffff;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.09);
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -34,23 +65,36 @@
         .header h1 {
             font-size: 20px;
             font-weight: 600;
-            color: #1890ff;
+            color: white;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
         }
 
         .search-box {
             width: 300px;
             height: 36px;
-            border: 1px solid #d9d9d9;
-            border-radius: 4px;
-            padding: 0 12px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 20px;
+            padding: 0 16px;
             font-size: 14px;
             outline: none;
             transition: all 0.3s;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+
+        .search-box::placeholder {
+            color: rgba(255, 255, 255, 0.7);
         }
 
         .search-box:focus {
-            border-color: #1890ff;
-            box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.5);
+            box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.15);
         }
 
         /* 主体内容区 */
@@ -58,107 +102,203 @@
             padding: 24px;
             max-width: 1200px;
             margin: 0 auto;
+            flex: 1;
+            width: 100%;
+            column-count: 3;
+            column-gap: 20px;
         }
 
         .category {
-            margin-bottom: 32px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 20px;
+            width: 100%;
+            break-inside: avoid;
+            margin-bottom: 20px;
+            position: relative;
+            box-shadow: 0 0 20px rgba(102, 126, 234, 0.3),
+                        inset 0 0 20px rgba(255, 255, 255, 0.05);
+            overflow: hidden;
+        }
+
+        .category::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 16px;
+            padding: 2px;
+            background: linear-gradient(90deg, #667eea, #764ba2, #667eea, #764ba2);
+            background-size: 300% 100%;
+            animation: borderGlow 3s linear infinite;
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+        }
+
+        @keyframes borderGlow {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 300% 50%; }
         }
 
         .category-header {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 16px;
+            margin-bottom: 12px;
         }
 
         .category-title {
-            font-size: 18px;
+            font-size: 16px;
             font-weight: 600;
-            color: #333333;
+            color: white;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
         .category-actions {
             display: flex;
-            gap: 8px;
+            gap: 6px;
         }
 
         .btn {
-            padding: 4px 12px;
-            border-radius: 4px;
+            padding: 8px 16px;
+            border-radius: 20px;
             font-size: 14px;
             cursor: pointer;
             transition: all 0.3s;
             border: 1px solid transparent;
+            font-weight: 500;
         }
 
         .btn-primary {
-            background-color: #1890ff;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
+            border: 1px solid rgba(102, 126, 234, 0.3);
         }
 
         .btn-primary:hover {
-            background-color: #40a9ff;
+            background: linear-gradient(135deg, #7b8fe8 0%, #8a5cb8 100%);
+            transform: translateY(-2px);
         }
 
         .btn-outline {
             background-color: white;
-            color: #1890ff;
-            border: 1px solid #1890ff;
+            color: #667eea;
+            border: 1px solid #667eea;
         }
 
         .btn-outline:hover {
-            background-color: #e6f7ff;
-        }
-
-        .btn-small {
-            padding: 2px 8px;
-            font-size: 12px;
-        }
-
-        .tabs-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 16px;
-        }
-
-        .tab-card {
-            background-color: white;
-            border: 1px solid #e8e8e8;
-            border-radius: 8px;
-            padding: 16px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s;
-            position: relative;
-            height: 120px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .tab-card:hover {
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            background-color: rgba(102, 126, 234, 0.1);
             transform: translateY(-2px);
         }
 
-        .tab-card .tab-icon {
-            width: 48px;
-            height: 48px;
-            margin-bottom: 12px;
-            border-radius: 8px;
+        .btn-small {
+            padding: 4px 10px;
+            font-size: 11px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
-        .tab-card .tab-name {
-            font-size: 14px;
-            color: #333333;
-            margin-bottom: 8px;
+        .btn-small:hover {
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .tabs-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            width: 100%;
+        }
+
+        .tab-card {
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 8px;
+            padding: 8px 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            font-weight: 500;
+            color: white;
+            white-space: nowrap;
+            min-height: 36px;
+            flex: 0 0 auto;
+            overflow: visible;
+            gap: 8px;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        .tab-icon {
+            width: 16px;
+            height: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .tab-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 2px;
+        }
+
+        .default-icon {
+            font-size: 12px;
+            opacity: 0.7;
+        }
+
+        .tab-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 8px;
+            padding: 1px;
+            background: linear-gradient(90deg, #667eea, #764ba2, #667eea, #764ba2);
+            background-size: 300% 100%;
+            animation: borderGlow 3s linear infinite;
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+            opacity: 0.7;
+            transition: opacity 0.3s;
+        }
+
+        .tab-card:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .tab-card:hover::before {
+            opacity: 1;
+            animation: borderGlow 2s linear infinite;
         }
 
         .tab-actions {
             position: absolute;
-            top: 8px;
-            right: 8px;
+            top: -6px;
+            right: -6px;
             display: none;
             gap: 4px;
         }
@@ -167,22 +307,23 @@
             display: flex;
         }
 
-        /* 底部操作栏 */
-        .footer {
-            height: 60px;
-            background-color: #ffffff;
-            box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.09);
+        .action-icon {
+            width: 16px;
+            height: 16px;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 50%;
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            padding: 0 24px;
-            position: sticky;
-            bottom: 0;
+            justify-content: center;
+            font-size: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            color: white;
         }
 
-        .footer-actions {
-            display: flex;
-            gap: 12px;
+        .action-icon:hover {
+            background: rgba(0, 0, 0, 0.7);
+            transform: scale(1.1);
         }
 
         /* 对话框 */
@@ -286,16 +427,26 @@
         /* 空状态 */
         .empty-state {
             text-align: center;
-            padding: 48px 0;
-            color: #999999;
+            padding: 20px 0;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 14px;
+            width: 100%;
         }
 
         .empty-state-icon {
-            font-size: 48px;
-            margin-bottom: 16px;
+            font-size: 32px;
+            margin-bottom: 12px;
+            color: rgba(255, 255, 255, 0.4);
         }
 
         /* 响应式设计 */
+        @media (max-width: 1200px) {
+            .main-content {
+                column-count: 2;
+                column-gap: 16px;
+            }
+        }
+
         @media (max-width: 768px) {
             .header {
                 padding: 0 16px;
@@ -307,49 +458,43 @@
 
             .main-content {
                 padding: 16px;
+                column-count: 1;
             }
 
             .tabs-container {
-                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-                gap: 12px;
+                gap: 6px;
             }
 
             .tab-card {
-                height: 100px;
-                padding: 12px;
-            }
-
-            .tab-card .tab-icon {
-                width: 36px;
-                height: 36px;
-                margin-bottom: 8px;
-            }
-
-            .footer {
-                padding: 0 16px;
-                flex-direction: column;
-                height: auto;
-                padding: 12px;
-                gap: 8px;
-            }
-
-            .footer-actions {
-                width: 100%;
-                justify-content: space-between;
+                min-height: 32px;
+                padding: 6px 10px;
+                font-size: 12px;
+                border-radius: 6px;
             }
 
             .btn {
                 flex: 1;
                 text-align: center;
+                padding: 6px 12px;
             }
         }
     </style>
 </head>
 <body>
+    <!-- 粒子动画背景 -->
+    <canvas id="particles-canvas"></canvas>
+    
+    <div class="content-wrapper">
     <!-- 顶部导航栏 -->
     <header class="header">
         <h1>大宝导航</h1>
-        <input type="text" class="search-box" placeholder="搜索标签..." id="searchInput">
+        <div class="header-actions">
+            <input type="text" class="search-box" placeholder="搜索标签..." id="searchInput">
+            <button class="btn btn-primary" id="addTabBtn">添加标签</button>
+            <button class="btn btn-outline" id="addCategoryBtn">添加分类</button>
+            <button class="btn btn-outline" id="importBtn">导入</button>
+            <button class="btn btn-outline" id="exportBtn">导出</button>
+        </div>
     </header>
 
     <!-- 主体内容区 -->
@@ -357,15 +502,7 @@
         <!-- 分类和标签将通过JavaScript动态生成 -->
     </main>
 
-    <!-- 底部操作栏 -->
-    <footer class="footer">
-        <div class="footer-actions">
-            <button class="btn btn-primary" id="addTabBtn">添加标签</button>
-            <button class="btn btn-outline" id="importBtn">导入JSON</button>
-            <button class="btn btn-outline" id="exportBtn">导出JSON</button>
-            <button class="btn btn-outline" id="addCategoryBtn">添加分类</button>
-        </div>
-    </footer>
+
 
     <!-- 添加/编辑标签对话框 -->
     <div class="modal" id="tabModal">
@@ -429,6 +566,7 @@
                 <button class="btn btn-primary" id="confirmOk">确认</button>
             </div>
         </div>
+    </div>
     </div>
 
     <script src="script.js"></script>
