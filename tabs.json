@@ -27,6 +27,30 @@
           "name": "Stack Overflow",
           "url": "https://stackoverflow.com",
           "icon": "https://stackoverflow.com/favicon.ico"
+        },
+        {
+          "id": "1-5",
+          "name": "百度",
+          "url": "https://www.baidu.com",
+          "icon": "https://www.baidu.com/favicon.ico"
+        },
+        {
+          "id": "1-6",
+          "name": "Bing",
+          "url": "https://www.bing.com",
+          "icon": "https://www.bing.com/favicon.ico"
+        },
+        {
+          "id": "1-7",
+          "name": "Figma",
+          "url": "https://www.figma.com",
+          "icon": "https://www.figma.com/favicon.ico"
+        },
+        {
+          "id": "1-8",
+          "name": "Canva",
+          "url": "https://www.canva.com",
+          "icon": "https://www.canva.com/favicon.ico"
         }
       ]
     },
@@ -45,6 +69,30 @@
           "name": "Trello",
           "url": "https://trello.com",
           "icon": "https://trello.com/favicon.ico"
+        },
+        {
+          "id": "2-3",
+          "name": "Slack",
+          "url": "https://slack.com",
+          "icon": "https://slack.com/favicon.ico"
+        },
+        {
+          "id": "2-4",
+          "name": "Zoom",
+          "url": "https://zoom.us",
+          "icon": "https://zoom.us/favicon.ico"
+        },
+        {
+          "id": "2-5",
+          "name": "Google Drive",
+          "url": "https://drive.google.com",
+          "icon": "https://drive.google.com/favicon.ico"
+        },
+        {
+          "id": "2-6",
+          "name": "Dropbox",
+          "url": "https://www.dropbox.com",
+          "icon": "https://www.dropbox.com/favicon.ico"
         }
       ]
     },
@@ -69,6 +117,36 @@
           "name": "React",
           "url": "https://reactjs.org",
           "icon": "https://reactjs.org/favicon.ico"
+        },
+        {
+          "id": "3-4",
+          "name": "TypeScript",
+          "url": "https://www.typescriptlang.org",
+          "icon": "https://www.typescriptlang.org/favicon.ico"
+        },
+        {
+          "id": "3-5",
+          "name": "Node.js",
+          "url": "https://nodejs.org",
+          "icon": "https://nodejs.org/favicon.ico"
+        },
+        {
+          "id": "3-6",
+          "name": "JavaScript.info",
+          "url": "https://javascript.info",
+          "icon": "https://javascript.info/favicon.ico"
+        },
+        {
+          "id": "3-7",
+          "name": "LeetCode",
+          "url": "https://leetcode.com",
+          "icon": "https://leetcode.com/favicon.ico"
+        },
+        {
+          "id": "3-8",
+          "name": "Coursera",
+          "url": "https://www.coursera.org",
+          "icon": "https://www.coursera.org/favicon.ico"
         }
       ]
     },
@@ -87,6 +165,102 @@
           "name": "Netflix",
           "url": "https://www.netflix.com",
           "icon": "https://www.netflix.com/favicon.ico"
+        },
+        {
+          "id": "4-3",
+          "name": "Spotify",
+          "url": "https://www.spotify.com",
+          "icon": "https://www.spotify.com/favicon.ico"
+        },
+        {
+          "id": "4-4",
+          "name": "爱奇艺",
+          "url": "https://www.iqiyi.com",
+          "icon": "https://www.iqiyi.com/favicon.ico"
+        },
+        {
+          "id": "4-5",
+          "name": "腾讯视频",
+          "url": "https://v.qq.com",
+          "icon": "https://v.qq.com/favicon.ico"
+        },
+        {
+          "id": "4-6",
+          "name": "B站",
+          "url": "https://www.bilibili.com",
+          "icon": "https://www.bilibili.com/favicon.ico"
+        }
+      ]
+    },
+    {
+      "id": "5",
+      "name": "购物",
+      "tabs": [
+        {
+          "id": "5-1",
+          "name": "淘宝",
+          "url": "https://www.taobao.com",
+          "icon": "https://www.taobao.com/favicon.ico"
+        },
+        {
+          "id": "5-2",
+          "name": "京东",
+          "url": "https://www.jd.com",
+          "icon": "https://www.jd.com/favicon.ico"
+        },
+        {
+          "id": "5-3",
+          "name": "拼多多",
+          "url": "https://www.pinduoduo.com",
+          "icon": "https://www.pinduoduo.com/favicon.ico"
+        },
+        {
+          "id": "5-4",
+          "name": "亚马逊",
+          "url": "https://www.amazon.com",
+          "icon": "https://www.amazon.com/favicon.ico"
+        },
+        {
+          "id": "5-5",
+          "name": " eBay",
+          "url": "https://www.ebay.com",
+          "icon": "https://www.ebay.com/favicon.ico"
+        }
+      ]
+    },
+    {
+      "id": "6",
+      "name": "社交",
+      "tabs": [
+        {
+          "id": "6-1",
+          "name": "微信",
+          "url": "https://wx.qq.com",
+          "icon": "https://wx.qq.com/favicon.ico"
+        },
+        {
+          "id": "6-2",
+          "name": "微博",
+          "url": "https://weibo.com",
+          "icon": "https://weibo.com/favicon.ico"
+        },
+        {
+          "id": "6-3",
+          "name": "Twitter",
+          "url": "https://twitter.com",
+          "icon": "https://twitter.com/favicon.ico"
+        },
+        {
+          "id": "6-4",
+          "name": "Facebook",
+          "url": "https://www.facebook.com",
+          "icon": "https://www.facebook.com/favicon.ico"
+        },
+        {
+          "id": "6-5",
+          "name": "Instagram",
+          "url": "https://www.instagram.com",
+          "icon": "https://www.instagram.com/favicon.ico"
         }
       ]
     }
