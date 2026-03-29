@@ -213,19 +213,14 @@ function bindEvents() {
         if (e.target.classList.contains('edit-category')) {
             const categoryId = e.target.dataset.categoryId;
             editCategory(categoryId);
+            return;
         }
         
         // 删除分类
         if (e.target.classList.contains('delete-category')) {
             const categoryId = e.target.dataset.categoryId;
             deleteCategory(categoryId);
-        }
-        
-        // 打开标签
-        if (e.target.closest('.tab-card')) {
-            const tabCard = e.target.closest('.tab-card');
-            const url = tabCard.dataset.url;
-            openTab(url);
+            return;
         }
         
         // 编辑标签
@@ -234,6 +229,7 @@ function bindEvents() {
             const categoryId = e.target.dataset.categoryId;
             const tabId = e.target.dataset.tabId;
             editTab(categoryId, tabId);
+            return;
         }
         
         // 删除标签
@@ -242,6 +238,14 @@ function bindEvents() {
             const categoryId = e.target.dataset.categoryId;
             const tabId = e.target.dataset.tabId;
             deleteTab(categoryId, tabId);
+            return;
+        }
+        
+        // 打开标签（必须在编辑/删除标签判断之后，避免冲突）
+        const tabCard = e.target.closest('.tab-card');
+        if (tabCard) {
+            const url = tabCard.dataset.url;
+            openTab(url);
         }
     });
 }
