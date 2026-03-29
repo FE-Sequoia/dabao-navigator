@@ -326,13 +326,35 @@ async function saveTab() {
     
     if (currentEditTab) {
         // 编辑现有标签
-        const category = currentData.categories.find(c => c.id === categoryId);
-        if (category) {
+        let originalCategory = null;
+        let tabToUpdate = null;
+        
+        // 查找包含该标签的原始分类
+        for (const category of currentData.categories) {
             const tab = category.tabs.find(t => t.id === currentEditTab.id);
             if (tab) {
-                tab.name = name;
-                tab.url = url;
-                tab.icon = icon;
+                originalCategory = category;
+                tabToUpdate = tab;
+                break;
+            }
+        }
+        
+        if (tabToUpdate) {
+            // 更新标签属性
+            tabToUpdate.name = name;
+            tabToUpdate.url = url;
+            tabToUpdate.icon = icon;
+            
+            // 如果分类发生变化，将标签从原分类移动到新分类
+            if (originalCategory.id !== categoryId) {
+                // 从原分类中移除标签
+                originalCategory.tabs = originalCategory.tabs.filter(t => t.id !== currentEditTab.id);
+                
+                // 添加到新分类
+                const newCategory = currentData.categories.find(c => c.id === categoryId);
+                if (newCategory) {
+                    newCategory.tabs.push(tabToUpdate);
+                }
             }
         }
     } else {
